@@ -1,0 +1,23 @@
+def artifactoryRepoName = "example-repo-local"
+def downloadartifactPath = "${artifactoryRepoName}/test1/app9/v${env.BUILD_NUMBER}/path2.txt"
+def destinationPath = "F:\\dotnet\\Jenkinsbuild\\download\\${env.BUILD_NUMBER}\\"
+
+node 
+{
+    stage('download artifacts from artifactory')
+    {
+        try
+        {
+            powershell label: '', script: "jfrog rt build-promote ${params.BUILD_NAME} ${params.BUILD_NUMBER} ${artifactoryRepoName}"
+        }
+        catch(ex)
+        {
+            throw ex
+        }
+        echo('download artifacts')
+        powershell label: '', script: "jfrog rt dl ${downloadartifactPath} ${destinationPath} --flat=true"
+        
+        /*powershell label: '', script: "jfrog rt dl example-repo-local/test1/app9/21/path2.txt F:\\dotnet\\Jenkinsbuild\\download\\21\\ --flat=true"*/
+      	
+    }
+}

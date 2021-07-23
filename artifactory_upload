@@ -1,0 +1,25 @@
+#!groovy
+
+/* ************************
+ * sachin malviya
+*/
+
+def artifactPath = "example-repo-local/test1/app9/v${env.BUILD_NUMBER}/"
+def filePath = "F:\\dotnet\\Jenkinsbuild\\path2.txt"
+
+node 
+{
+    
+    stage('publish artifacts to artifactory')
+    {
+        echo('upload to artifactory')
+        echo("jfrog rt u ${filePath} ${artifactPath} --build-name=${env.JOB_NAME} --build-number=${env.BUILD_NUMBER}")
+      	powershell label: '', script: "jfrog rt u ${filePath} ${artifactPath} --build-name=${env.JOB_NAME} --build-number=${env.BUILD_NUMBER}"
+      	echo("collect env variables")
+      	powershell label: '', script: "jfrog rt bce ${env.JOB_NAME} ${env.BUILD_NUMBER}"
+      	echo("build url")
+      	powershell label: '', script: "jfrog rt bp ${env.JOB_NAME} ${env.BUILD_NUMBER} --build-url=${env.BUILD_URL}"
+      	
+      	
+    }
+}
