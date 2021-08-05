@@ -5,7 +5,7 @@
 */
 
 def artifactPath = "example-repo-local/test1/app9/v${env.BUILD_NUMBER}/"
-def filePath = "F:\\dotnet\\Jenkinsbuild\\path2.txt"
+def filePath = "F:\\dotnet\\artifactory_docs\\path2.txt"
 
 node 
 {
