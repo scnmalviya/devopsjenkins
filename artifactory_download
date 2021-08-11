@@ -1,4 +1,4 @@
-def artifactoryRepoName = "example-repo-local"
+def artifactoryRepoName = "${env.GLB_ARTIFACTORY_URL}" /*"example-repo-local"*/
 def downloadartifactPath = "${artifactoryRepoName}/test1/app9/v${env.BUILD_NUMBER}/path2.txt"
 def destinationPath = "F:\\dotnet\\artifactory_docs\\download\\${env.BUILD_NUMBER}\\"
 
